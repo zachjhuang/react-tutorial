@@ -1,7 +1,8 @@
 import CourseListing from './CourseListing.jsx';
+import './CourseList.css'
 
 const CourseList = ({courses}) => (
-    <div> 
+    <div className='course-list' > 
         {Object.entries(courses).map(([number, course]) => <CourseListing key={number} course={course}/>)}
     </div>
 );
