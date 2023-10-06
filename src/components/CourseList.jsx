@@ -1,9 +1,13 @@
 import CourseListing from './CourseListing.jsx';
 import './CourseList.css'
 
-const CourseList = ({selection, courses}) => (
+const filteredCourses = (courses, termFilter) => {
+    return Object.entries(courses).filter(([number, course]) => course.term == termFilter)
+}
+
+const CourseList = ({termFilter, courses, selected, toggleSelected}) => (
     <div className='course-list' > 
-        {Object.entries(courses).filter(([number, course]) => course.term == selection).map(([number, course]) => <CourseListing key={number} course={course}/>)}
+        {filteredCourses(courses, termFilter).map(([number, course]) => <CourseListing key={number} course={course} selected={selected} toggleSelected={toggleSelected}/>)}
     </div>
 );
 
