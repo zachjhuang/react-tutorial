@@ -32,7 +32,7 @@ const TermPage = ({courses}) => {
 
   return (
     <div>
-      <nav class='d-flex'>
+      <nav className='d-flex'>
         <TermSelector terms={terms} termFilter={termFilter} setTermFilter={setTermFilter} />
         <button className="btn btn-outline-dark ms-auto" onClick={openModal}><i className="bi bi-cart4">Course Plan</i></button>
       </nav>
