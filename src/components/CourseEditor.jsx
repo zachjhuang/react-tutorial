@@ -2,12 +2,27 @@ import { useDbUpdate } from '../utilities/firebase';
 import { useFormData } from '../utilities/useFormData';
 import { useParams, useNavigate } from 'react-router-dom';
 
+const isValidTime = (startHour, startMinute, endHour, endMinute) =>
+  startHour >= 0 && startHour <= 23 &&
+  endHour >= 0 && endHour <= 23 &&
+  startMinute >= 0 && startMinute <= 59 &&
+  endMinute >= 0 && endMinute <= 59 &&
+  parseInt(startHour + startMinute) <= parseInt(endHour + endMinute);
+
 const validateCourseData = (key, val) => {
     switch (key) {
-        // case 'firstName': case 'lastName':
-        //     return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
-        // case 'email':
-        //     return /^\w+@\w+[.]\w+/.test(val) ? '' : 'must contain name@domain.top-level-domain';
+        case 'title':
+            return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
+        case 'meets':
+            if (val == '') {
+                return ''
+            }
+            const match = val.match(/^(?:M)?(?:Tu)?(?:W)?(?:Th)?(?:F)? (\d{1,2}):(\d{2})-(\d{1,2}):(\d{2})?/)
+            if (match) {
+                const [fullMatch, startHour, startMinute, endHour, endMinute] = match
+                return isValidTime(startHour, startMinute, endHour, endMinute) ? '' : 'Please enter valid times, 0:00-23:59'
+            }
+            return 'Please enter valid schedule format, e.g. "MTuWThF 0:00-23:59"'
         default: 
             return '';
     }
