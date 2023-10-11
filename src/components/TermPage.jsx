@@ -34,7 +34,7 @@ const TermPage = ({courses}) => {
     <div>
       <nav className='d-flex'>
         <TermSelector terms={terms} termFilter={termFilter} setTermFilter={setTermFilter} />
-        <button className="btn btn-outline-dark ms-auto" onClick={openModal}><i className="bi bi-cart4">Course Plan</i></button>
+        <button className="btn btn-outline-dark ms-auto" onClick={openModal}><b className="bi bi-cart4"> Course Plan</b></button>
       </nav>
       <Modal open={open} close={closeModal}>
         <CoursePlan selected={selected} />
