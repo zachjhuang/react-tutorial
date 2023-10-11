@@ -1,12 +1,11 @@
 import './CourseListing.css'
 import { courseConflict } from '../utilities/conflicts';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const CourseListing = ({id, course, selected, toggleSelected}) => {
-    const navigate = useNavigate();
     return (
-        <div className='course-listing card m-1 p-2'>
+        <div className='course-listing card m-1 p-2' onClick={() => (courseConflict(selected, course) ? undefined : toggleSelected(course))}>
             <div className={`card-body ${selected.includes(course) ? 'selected' : ''} ${courseConflict(selected, course) ? 'conflicting' : ''}`}>
                 <div className="d-flex justify-content-between align-items-center">
                     <h5 className='card-title'>{course.term} CS {course.number}</h5>
