@@ -41,7 +41,7 @@ const ButtonBar = ({message, disabled}) => {
     return (
         <div className="d-flex">
             <button type="button" className="btn btn-outline-dark me-2" onClick={() => navigate(-1)}>Cancel</button>
-            <button type="submit" className="btn btn-primary me-auto" disabled={true}>Submit</button>
+            <button type="submit" className="btn btn-primary me-auto" disabled={disabled}>Submit</button>
             <span className="p-2">{message}</span>
         </div>
     );
@@ -50,12 +50,12 @@ const ButtonBar = ({message, disabled}) => {
 const CourseEditor = ({courses}) => {
     const { id } = useParams();
     const course = courses[id]
-    const [update, result] = useDbUpdate(`/courses/${course.title}`);
+    const [update, result] = useDbUpdate(`/courses/${id}`);
     const [state, change] = useFormData(validateCourseData, course);
     const submit = (evt) => {
         evt.preventDefault();
         if (!state.errors) {
-        update(state.values);
+            update(state.values);
         }
     };
     return (
@@ -64,7 +64,7 @@ const CourseEditor = ({courses}) => {
             <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
                 <InputField name="title" text="Course Title" state={state} change={change} />
                 <InputField name="meets" text="Meeting Times" state={state} change={change} />
-                <ButtonBar message={result?.message} />
+                <ButtonBar message={result?.message} disabled={state.errors} />
             </form>
         </div>
     )
