@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navigation from './components/Navigation';
 import Banner from './components/Banner';
 import TermPage from './components/TermPage';
 import CourseEditor from './components/CourseEditor';
@@ -13,17 +14,19 @@ const Main = () => {
   if (!data) return <h1>No user data found</h1>;
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={
-          <div>
-            <Banner title={data.title}/>
-            <TermPage courses={data.courses}/>
-          </div>
-        } />
-        <Route path="/CourseEditor/:id" element={<CourseEditor courses={data.courses}/>}/>
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <nav className='d-flex'>
+        <Banner title={data.title}/>
+        <Navigation className='btn btn-outline-dark ms-auto'/>
+      </nav>
+      <hr></hr>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<TermPage courses={data.courses} />} />
+          <Route path="/CourseEditor/:id" element={<CourseEditor courses={data.courses} />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 
